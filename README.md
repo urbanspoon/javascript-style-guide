@@ -148,7 +148,7 @@
   - When you need to copy an array use Array#slice. [jsPerf](http://jsperf.com/converting-arguments-to-an-array/7)
 
     ```javascript
-    var len = items.length,
+    var len = items.length;
         itemsCopy = [],
         i;
 
@@ -321,31 +321,31 @@
   - Use dot notation when accessing properties.
 
     ```javascript
-    var luke = {
-      jedi: true,
-      age: 28
+    var restaurant = {
+      open: true,
+      title: 'Paseo'
     };
 
     // bad
-    var isJedi = luke['jedi'];
+    var isOpen = restaurant['open'];
 
     // good
-    var isJedi = luke.jedi;
+    var isOpen = restaurant.open;
     ```
 
   - Use subscript notation `[]` when accessing properties with a variable.
 
     ```javascript
-    var luke = {
-      jedi: true,
-      age: 28
+    var restaurant = {
+      open: true,
+      title: 'Paseo'
     };
 
     function getProp(prop) {
-      return luke[prop];
+      return restaurant[prop];
     }
 
-    var isJedi = getProp('jedi');
+    var isOpen = getProp('open');
     ```
 
 **[⬆ back to top](#table-of-contents)**
@@ -363,40 +363,34 @@
     var superPower = new SuperPower();
     ```
 
-  - Use one `var` declaration for multiple variables and declare each variable on a newline.
-
+  - Use one `var` per variable declaration and declare each variable on a newline.
+    ## I'm up in the air about this.
     ```javascript
     // bad
-    var items = getItems();
-    var goSportsTeam = true;
-    var dragonball = 'z';
-
-    // good
     var items = getItems(),
         goSportsTeam = true,
         dragonball = 'z';
+
+    // good
+    var items = getItems();
+    var goSportsTeam = true;
+    var dragonball = 'z';
     ```
 
   - Declare unassigned variables last. This is helpful when later on you might need to assign a variable depending on one of the previous assigned variables.
 
     ```javascript
     // bad
-    var i, len, dragonball,
-        items = getItems(),
-        goSportsTeam = true;
-
-    // bad
-    var i, items = getItems(),
-        dragonball,
-        goSportsTeam = true,
-        len;
+    var i; var len; var dragonball,;
+    var items = getItems();
+    var goSportsTeam = true;
 
     // good
-    var items = getItems(),
-        goSportsTeam = true,
-        dragonball,
-        length,
-        i;
+    var items = getItems();
+    var goSportsTeam = true;
+    var dragonball;
+    var length;
+    var i;
     ```
 
   - Assign variables at the top of their scope. This helps avoid issues with variable declaration and assignment hoisting related issues.
@@ -836,7 +830,7 @@
 
 ## Commas
 
-  - Leading commas: **Nope.**
+  - Leading commas: **Nope** Those hipster Noders!
 
     ```javascript
     // bad
@@ -845,9 +839,9 @@
       , aTime;
 
     // good
-    var once,
-        upon,
-        aTime;
+    var once;
+    var upon;
+    var aTime;
 
     // bad
     var hero = {
@@ -866,7 +860,7 @@
     };
     ```
 
-  - Additional trailing comma: **Nope.** This can cause problems with IE6/7 and IE9 if it's in quirksmode. Also, in some implementations of ES3 would add length to an array if it had an additional trailing comma. This was clarified in ES5 ([source](http://es5.github.io/#D)):
+  - Additional trailing comma: **Nope** This can cause problems with IE6/7 and IE9 if it's in quirksmode. Also, in some implementations of ES3 would add length to an array if it had an additional trailing comma. This was clarified in ES5 ([source](http://es5.github.io/#D)):
 
   > Edition 5 clarifies the fact that a trailing comma at the end of an ArrayInitialiser does not add to the length of the array. This is not a semantic change from Edition 3 but some implementations may have previously misinterpreted this.
 
@@ -904,22 +898,23 @@
     ```javascript
     // bad
     (function() {
-      var name = 'Skywalker'
+      var name = 'Paseo'
       return name
     })()
 
     // good
     (function() {
-      var name = 'Skywalker';
+      var name = 'Paseo';
       return name;
     })();
 
     // good (guards against the function becoming an argument when two files with IIFEs are concatenated)
     ;(function() {
-      var name = 'Skywalker';
+      var name = 'Paseo';
       return name;
     })();
     ```
+    // WTF it closed?
 
     [Read more](http://stackoverflow.com/a/7365214/1712802).
 
@@ -928,6 +923,7 @@
 
 ## Type Casting & Coercion
 
+  - [A little Wat](https://www.destroyallsoftware.com/talks/wat)
   - Perform type coercion at the beginning of the statement.
   - Strings:
 
@@ -1030,6 +1026,8 @@
     ```javascript
     // bad
     var OBJEcttsssss = {};
+
+    // this is javascript not ruby. Brian!
     var this_is_my_object = {};
     function c() {}
     var u = new user({
@@ -1048,20 +1046,20 @@
 
     ```javascript
     // bad
-    function user(options) {
+    function userName(options) {
       this.name = options.name;
     }
 
-    var bad = new user({
+    var bad = new userName({
       name: 'nope'
     });
 
     // good
-    function User(options) {
+    function UserName(options) {
       this.name = options.name;
     }
 
-    var good = new User({
+    var good = new UserName({
       name: 'yup'
     });
     ```
@@ -1077,14 +1075,14 @@
     this._firstName = 'Panda';
     ```
 
-  - When saving a reference to `this` use `_this`.
+  - When saving a reference to `this` use `self`.
 
     ```javascript
     // bad
     function() {
-      var self = this;
+      var oldThis = this;
       return function() {
-        console.log(self);
+        console.log(oldThis);
       };
     }
 
@@ -1098,9 +1096,9 @@
 
     // good
     function() {
-      var _this = this;
+      var self = this;
       return function() {
-        console.log(_this);
+        console.log(self);
       };
     }
     ```
@@ -1131,28 +1129,28 @@
 
     ```javascript
     // bad
-    dragon.age();
+    restaurant.title();
 
     // good
-    dragon.getAge();
+    restaurant.getTitle();
 
     // bad
-    dragon.age(25);
+    restaurant.title(25);
 
     // good
-    dragon.setAge(25);
+    restaurant.setTitle(25);
     ```
 
   - If the property is a boolean, use isVal() or hasVal()
 
     ```javascript
     // bad
-    if (!dragon.age()) {
+    if (!restaurant.title()) {
       return false;
     }
 
     // good
-    if (!dragon.hasAge()) {
+    if (!restaurant.hasTitle()) {
       return false;
     }
     ```
@@ -1160,17 +1158,17 @@
   - It's okay to create get() and set() functions, but be consistent.
 
     ```javascript
-    function Jedi(options) {
+    function Restaurant(options) {
       options || (options = {});
-      var lightsaber = options.lightsaber || 'blue';
-      this.set('lightsaber', lightsaber);
+      var open = options.open || 'Now';
+      this.set('open', open);
     }
 
-    Jedi.prototype.set = function(key, val) {
+    Restaurant.prototype.set = function(key, val) {
       this[key] = val;
     };
 
-    Jedi.prototype.get = function(key) {
+    Restaurant.prototype.get = function(key) {
       return this[key];
     };
     ```
@@ -1183,28 +1181,28 @@
   - Assign methods to the prototype object, instead of overwriting the prototype with a new object. Overwriting the prototype makes inheritance impossible: by resetting the prototype you'll overwrite the base!
 
     ```javascript
-    function Jedi() {
-      console.log('new jedi');
+    function Menu() {
+      console.log('new menu');
     }
 
     // bad
-    Jedi.prototype = {
-      fight: function fight() {
-        console.log('fighting');
+    Menu.prototype = {
+      soup: function soup() {
+        console.log('eating');
       },
 
-      block: function block() {
-        console.log('blocking');
+      dessert: function dessert() {
+        console.log('so good');
       }
     };
 
     // good
-    Jedi.prototype.fight = function fight() {
-      console.log('fighting');
+    Menu.prototype.soup = function soup() {
+      console.log('souping');
     };
 
-    Jedi.prototype.block = function block() {
-      console.log('blocking');
+    Menu.prototype.dessert = function dessert() {
+      console.log('so good');
     };
     ```
 
@@ -1269,11 +1267,11 @@
 
     ```js
     // bad
-    $(this).trigger('listingUpdated', listing.id);
+    $(this).trigger('restaurantUpdated', listing.id);
 
     ...
 
-    $(this).on('listingUpdated', function(e, listingId) {
+    $(this).on('restaurantUpdated', function(e, listingId) {
       // do something with listingId
     });
     ```
@@ -1282,11 +1280,11 @@
 
     ```js
     // good
-    $(this).trigger('listingUpdated', { listingId : listing.id });
+    $(this).trigger('restaurantUpdated', { listingId : listing.id });
 
     ...
 
-    $(this).on('listingUpdated', function(e, data) {
+    $(this).on('restaurantUpdated', function(e, data) {
       // do something with data.listingId
     });
     ```
@@ -1295,6 +1293,7 @@
 
 
 ## Modules
+//  TODO::
 
   - The module should start with a `!`. This ensures that if a malformed module forgets to include a final semicolon there aren't errors in production when the scripts get concatenated. [Explanation](https://github.com/airbnb/javascript/issues/44#issuecomment-13063933)
   - The file should be named with camelCase, live in a folder with the same name, and match the name of the single export.
@@ -1304,21 +1303,20 @@
     ```javascript
     // fancyInput/fancyInput.js
 
-    !function(global) {
+    !function(US) {
       'use strict';
 
-      var previousFancyInput = global.FancyInput;
+      US = US || {};
 
-      function FancyInput(options) {
+      FancyInput = function FancyInput(options) {
         this.options = options || {};
       }
 
-      FancyInput.noConflict = function noConflict() {
-        global.FancyInput = previousFancyInput;
-        return FancyInput;
-      };
+      return FancyInput {
 
-      global.FancyInput = FancyInput;
+      }
+
+      US.FancyInput = FancyInput;
     }(this);
     ```
 
