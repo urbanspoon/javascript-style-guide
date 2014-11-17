@@ -1,6 +1,6 @@
--[ ] fix the iife
--[ ] better module definition
--[ ] DOM manipulation
--[ ] Folder structure
--[ ] JS in rails views
--[ ] Where ember fits
+- [ ] fix the iife
+- [ ] better module definition
+- [ ] DOM manipulation
+- [ ] Folder structure
+- [ ] JS in rails views
+- [ ] Where ember fits
